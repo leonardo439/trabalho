@@ -1,0 +1,77 @@
+!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vinil & Verniz — Instrumentos Vintage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;800&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+  <header class="marquee">
+    <div class="marquee-inner">
+      <p class="eyebrow">Desde 1978 · Loja de bairro</p>
+      <h1 class="brand">Vinil <span class="amp">&amp;</span> Verniz</h1>
+      <p class="tagline">Instrumentos, discos e som de verdade. Sem streaming, sem pressa.</p>
+    </div>
+    <div class="ticket-count" id="cart-toggle">
+      <span class="ticket-icon">🎫</span>
+      <span id="cart-badge">0</span>
+      <span class="ticket-label">no carrinho</span>
+    </div>
+  </header>
+ 
+  <main class="layout">
+ 
+    <section class="catalog" aria-label="Catálogo de produtos">
+      <div class="catalog-head">
+        <h2>Catálogo</h2>
+        <div class="filters" id="filters"></div>
+      </div>
+      <div class="product-grid" id="product-grid"></div>
+    </section>
+ 
+    <aside class="cart-panel" id="cart-panel" aria-label="Carrinho de compras">
+      <div class="cart-receipt">
+        <div class="receipt-header">
+          <h2>Seu recibo</h2>
+          <button class="clear-btn" id="clear-cart">limpar tudo</button>
+        </div>
+ 
+        <div class="receipt-items" id="cart-items">
+          <p class="empty-msg" id="empty-msg">Seu carrinho está vazio.<br>Escolha algo do catálogo ao lado.</p>
+        </div>
+ 
+        <div class="receipt-divider" aria-hidden="true"></div>
+ 
+        <div class="receipt-totals">
+          <div class="row">
+            <span>Subtotal</span>
+            <span id="subtotal-value">R$ 0,00</span>
+          </div>
+          <div class="row discount-row" id="discount-row" hidden>
+            <span id="discount-label">Desconto</span>
+            <span id="discount-value">- R$ 0,00</span>
+          </div>
+          <div class="row total-row">
+            <span>Total</span>
+            <span id="total-value">R$ 0,00</span>
+          </div>
+        </div>
+ 
+        <p class="discount-hint" id="discount-hint"></p>
+ 
+        <button class="checkout-btn" id="checkout-btn" disabled>Finalizar compra</button>
+      </div>
+    </aside>
+ 
+  </main>
+ 
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+ 
+  <script src="script.js"></script>
+</body>
+</html>
+ 
