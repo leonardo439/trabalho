@@ -1,0 +1,51 @@
+TRABALHO DE PROGRAMAÇÃO PARA A INSTERNET
+
+Aluno: Leonardo Fernandes de Lima • 20241214010017
+
+Desenvolvimento de um Carrinho de Compras.
+
+Este relatório apresenta o desenvolvimento de uma aplicação web de e-commerce focada em um carrinho de compras de instrumentos musicais, utilizando as tecnologias HTML, CSS e JavaScript.
+
+
+	◦	 ⁠index.html⁠: Responsável por toda a estrutura e marcação da página (vitrine e painel do carrinho).
+	◦	 ⁠style.css⁠: Responsável pelo design responsivo, estilização dos botões, efeitos de hover e posicionamento dos elementos.
+	◦	 ⁠script.js⁠: Responsável pela lógica de dados, manipulação do DOM, funções de adicionar/remover itens e cálculo.
+
+Professor, meu trabalho é uma loja virtual fictícia chamada 'Vinil & Verniz', feita com HTML, CSS e JavaScript puro, sem nenhum framework. Vou explicar como atendi cada requisito.
+
+Catálogo de produtos
+Primeiro, eu criei um array de objetos no JavaScript, onde cada objeto representa um produto. Cada produto tem os 5 campos obrigatórios: nome, preço, categoria, uma imagem, no meu caso usei emoji como representação visual, e a quantidade em estoque.
+Esses produtos não estão escritos no HTML. O HTML só tem uma div vazia, e eu fiz uma função, a renderProducts, que percorre esse array e gera o HTML de cada card automaticamente. Isso é importante porque mostra que estou manipulando o array pra montar a tela, e não fazendo isso na mão.
+
+1. Introdução e Escopo do Projeto
+Este documento apresenta a especificação técnica da aplicação web "Vinil & Verniz", uma loja virtual fictícia de instrumentos musicais e discos de vinil. O projeto foi desenvolvido utilizando exclusivamente as tecnologias fundamentais da web: HTML5, CSS3 e JavaScript nativo (Vanilla JS), abdicando do uso de quaisquer frameworks ou bibliotecas externas.
+O objetivo principal do projeto é aplicar conceitos avançados de manipulação do DOM (Document Object Model), gerenciamento de estado em memória e programação reativa baseada em eventos.
+2. Estrutura e Arquitetura do Catálogo
+Para garantir uma aplicação dinâmica e escalável, o catálogo de produtos não foi codificado diretamente no arquivo HTML. Em vez disso, foi adotada a seguinte abordagem:
+ Abstração de Dados: Criação de um array de objetos global no JavaScript denominado ⁠products⁠. Cada objeto encapsula estritamente os 5 campos obrigatórios exigidos: ⁠id⁠, ⁠name⁠, ⁠price⁠, ⁠category⁠, ⁠image⁠ (representada por emojis para fins visuais) e ⁠stock⁠.
+ Renderização Dinâmica: O arquivo HTML possui apenas um elemento container vazio (⁠<div id="products-container"></div>⁠). A função ⁠renderProducts()⁠ é responsável por percorrer o array ⁠products⁠ através de métodos de iteração, construir a estrutura de marcação de cada "card" e injetá-la dinamicamente no DOM. Isso demonstra a separação clara entre a camada de dados e a camada de apresentação.
+3. Gerenciamento do Carrinho de Compras
+A persistência temporária das escolhas do usuário adota o conceito de Normalização de Dados, uma boa prática essencial no desenvolvimento de softwares:
+ Estrutura Restrita: O array ⁠cart⁠ armazena exclusivamente referências essenciais: o ⁠id⁠ do produto e a ⁠quantity⁠ desejada. Informações mutáveis ou redundantes (como preço e nome) permanecem apenas no array de produtos original e são consultadas sob demanda. Isso previne bugs de dessincronização de dados.
+ Ciclo de Vida das Ações (CRUD do Carrinho):
+1. Adicionar (⁠addToCart⁠): Realiza uma busca prévia no array. Caso o item já exista, incrementa a propriedade ⁠quantity⁠; caso contrário, insere um novo objeto com quantidade inicial igual a 1.
+2. Alterar Quantidade (⁠changeQuantity⁠): Função matemática que recebe um parâmetro incremental (delta positivo ou negativo) para ajustar o volume de itens de forma dinâmica.
+3. Remover Item (⁠removeFromCart⁠): Utiliza o método nativo ⁠.filter()⁠ para expurgar um ⁠id⁠ específico do array, removendo o item completamente da listagem.
+4. Limpar Tudo (⁠clearCart⁠): Redefine o estado do array ⁠cart⁠ para vazio (⁠[]⁠), reiniciando o fluxo.
+4. Camada de Cálculos Automáticos e Estado Reativo
+A aplicação implementa um fluxo de renderização reativa baseada em funções. Toda e qualquer interação que altere o array ⁠cart⁠ dispara, obrigatoriamente no final de sua execução, a função centralizadora ⁠render()⁠.
+Esta função limpa o HTML antigo e redesenha a interface do zero a partir do estado atualizado dos dados, garantindo que os três cálculos obrigatórios reflitam instantaneamente na tela sem a necessidade de recarregar a página (Single Page Application Behavior):
+ Subtotal: Calculado por item multiplicando o preço unitário obtido no catálogo pela quantidade no carrinho.
+ Regra de Negócio de Desconto (⁠getDiscount⁠): Função isolada e especializada que recebe a somatória dos subtotais e aplica faixas de desconto progressivo: 10% para compras acima de R$ 300,00 e 15% para compras acima de R$ 600,00.
+ Valor Final: Resultado obtido através da subtração do desconto calculado sobre o subtotal geral.
+5. Validações e Regras de Consistência
+Para mitigar erros operacionais e simular a robustez de um e-commerce em ambiente de produção, foram aplicadas três camadas de validação lógica:
+ Bloqueio de Estoque Excedente: Antes de processar qualquer adição ou incremento, o sistema confronta a quantidade solicitada com o campo ⁠stock⁠ do produto. Se o limite for atingido, a operação é abortada e um alerta visual é disparado na tela.
+ Prevenção de Estados Inválidos (Quantidade Zero): Caso a ação de diminuir a quantidade faça com que o item atinja o valor zero ou inferior, o sistema intercepta o fluxo e executa automaticamente a remoção (⁠removeFromCart⁠), impedindo números negativos no carrinho.
+ Feedback de Produto Esgotado: Produtos cujo campo ⁠stock⁠ seja igual a 0 recebem uma estilização de opacidade diferenciada na vitrine, exibem o texto descritivo "Esgotado" e têm a propriedade do botão de compra alterada para desabilitada (⁠disabled⁠), utilizando regras de CSS (⁠pointer-events: none⁠) para travar novas interações.
+6. Conclusão
+O projeto Vinil & Verniz cumpre rigorosamente todos os requisitos acadêmicos estipulados através de uma arquitetura limpa em JavaScript Puro. A centralização da lógica de negócios em funções puras, o controle rígido do fluxo de dados (data driven UI) e o cuidado com a experiência de uso (validações de estoque e cálculo em tempo real) resultaram em uma aplicação estável, performática e aderente às melhores práticas de desenvolvimento front-end.
+
+Também pedi ajuda ao Gemini para aprimorar o meu projeto:
+
+https://share.gemini.google/GPSomlQEppDZ
